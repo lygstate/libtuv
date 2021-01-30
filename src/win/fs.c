@@ -115,7 +115,6 @@ const WCHAR UNC_PATH_PREFIX_LEN = 8;
 
 
 void uv_fs_init() {
-  _fmode = _O_BINARY;
 }
 
 
@@ -502,7 +501,7 @@ void fs__open(uv_fs_t* req) {
     return;
   }
 
-  fd = _open_osfhandle((intptr_t) file, flags);
+  fd = _open_osfhandle((intptr_t) file, _O_BINARY);
   if (fd < 0) {
     /* The only known failure mode for _open_osfhandle() is EMFILE, in which
      * case GetLastError() will return zero. However we'll try to handle other
